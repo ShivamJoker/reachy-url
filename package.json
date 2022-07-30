@@ -5,7 +5,7 @@
   "main": "lib/index.cjs",
   "module": "lib/index.js",
   "scripts": {
-    "prepublish": "tsx build.ts"
+    "prepublishOnly": "tsx build.ts"
   },
   "keywords": [
     "domain-check",
