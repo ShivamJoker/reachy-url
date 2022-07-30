@@ -1,6 +1,6 @@
 {
   "name": "reachy-url",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zero dependency nodejs library for checking if URL is reachable or not",
   "main": "lib/index.cjs",
   "module": "lib/index.js",
