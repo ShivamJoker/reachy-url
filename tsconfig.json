@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "incremental": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./lib/"
+  },
+  "include": ["index.ts"]
+}
