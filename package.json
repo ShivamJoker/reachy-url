@@ -5,7 +5,8 @@
   "main": "lib/index.cjs",
   "module": "lib/index.js",
   "scripts": {
-    "prepublishOnly": "tsx build.ts"
+    "prepublishOnly": "npm test && tsx build.ts",
+    "test": "vitest --watch false"
   },
   "keywords": [
     "domain-check",
@@ -19,8 +20,11 @@
   "devDependencies": {
     "@swc/core": "^1.2.220",
     "@types/node": "^18.6.2",
+    "@types/polka": "^0.5.4",
     "npm-dts": "^1.3.12",
+    "polka": "^0.5.2",
     "tsx": "^3.8.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vitest": "^0.19.1"
   }
 }
