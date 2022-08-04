@@ -1,4 +1,4 @@
-name: Publish release
+name: Test & Publish release
 
 on: push
 
@@ -8,6 +8,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: pnpm install
         
       - name: test
         run: npm run test
