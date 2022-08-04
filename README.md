@@ -55,4 +55,4 @@ Promise object with status code or error
 
 #### Defined in
 
-[index.ts:24](https://github.com/ShivamJoker/reachy-url/blob/3630a09/index.ts#L24)
+[index.ts:24](https://github.com/ShivamJoker/reachy-url/blob/95f2e85/index.ts#L24)
