@@ -8,8 +8,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: test
+        run: npm run test
+        
+      - name: Build
+        run: npm run build
+        
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           generate_release_notes: true
+          
+      - name: Push version change back to origin
+        if: success()
+        run: git push origin HEAD
