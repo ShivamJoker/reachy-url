@@ -1,36 +1,52 @@
 import { parse } from "url";
-import http from "http";
+import http, { RequestOptions } from "http";
+import https from "https";
 
 // taken from https://stackoverflow.com/a/68415816/5748481
+
 /**
- * Check if a URL is reachable
- * @param {string} url - URL of the website
- * @param {number} [timeout=2000] - Cancel request after (default 2000ms)
- * @param {object} [requestOptions] - Optional request parameters for reqest
- * @returns {Promise} Promise object with status code or error
- */
+Check if a URL is reachable
+@param {string} url - URL of the website
+@param {number} timeout - Cancel request after given time
+@param {RequestOptions} requestOptions - Request options for HTTP Request
+@returns {Promise} Promise object with status code or error
+
+@example
+try {
+  const statusCode = await isReachable("https://learnaws.io");
+  // statusCode = 200
+} catch (error) {
+  const { message } = error;
+  // Unable to resolve given URL, got status 404 or
+  // Request timed out while requesting the provided URL
+}
+*/
 const isReachable = (
   url: string,
-  timeout?: number,
-  requestOptions?: http.RequestOptions
+  timeout: number = 2000,
+  requestOptions?: RequestOptions
 ): Promise<string | number | Error> => {
   return new Promise((resolve, reject) => {
-    const host = parse(url).host;
+    const { host, protocol, pathname } = parse(url);
 
     if (!host) {
       reject(Error("Invalid URL"));
     }
 
-    const options: http.RequestOptions = {
-      method: "HEAD",
+    const isHttps = protocol === "https:";
+
+    const options: RequestOptions = {
       host,
-      path: parse(url).pathname,
-      port: 80,
-      timeout: timeout ?? 2000,
+      timeout,
+      method: "HEAD",
+      path: pathname,
+      port: isHttps ? 443 : 80,
       ...requestOptions,
     };
 
-    const req = http.request(options, (res) => {
+    const network = isHttps ? https : http;
+
+    const req = network.request(options, (res) => {
       const statusCode = res.statusCode ?? 404;
       const isStatusOk = statusCode < 400;
 
@@ -56,3 +72,11 @@ const isReachable = (
 };
 
 export default isReachable;
+
+console.time("took");
+
+isReachable("https://learnaws.io").then((d) => {
+  console.log(d);
+
+  console.timeEnd("took");
+});
